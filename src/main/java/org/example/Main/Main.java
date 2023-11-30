@@ -14,7 +14,12 @@ public class Main {
 
         try(Connection myConn = DatabaseConnection.getInstance())  {
             Repository<Employee> repository = new EmployeeRepository();
+
+            System.out.println("Insertando empleado");
+
+            repository.delete(8);
             repository.findAll().forEach(System.out::println);
+
         }
     }
 }

@@ -8,6 +8,15 @@ public class Employee {
     private String ma_surname;
     private String email;
     private Float salary;
+    private String curp;
+
+    public String getCurp() {
+        return curp;
+    }
+
+    public void setCurp(String curp){
+        this.curp = curp;
+    }
 
     public Employee() {
     }
@@ -20,7 +29,8 @@ public class Employee {
                 ", pa_surname='" + pa_surname + '\'' +
                 ", ma_surname='" + ma_surname + '\'' +
                 ", email='" + email + '\'' +
-                ", salary=" + salary +
+                ", salary=" + salary +'\'' +
+                ", curp=" + curp +
                 '}';
     }
 

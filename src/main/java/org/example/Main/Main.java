@@ -5,6 +5,7 @@ import org.example.repository.EmployeeRepository;
 import org.example.repository.Repository;
 import org.example.util.DatabaseConnection;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 
 public class Main {
@@ -13,13 +14,38 @@ public class Main {
 
 
         try(Connection myConn = DatabaseConnection.getInstance())  {
-            Repository<Employee> repository = new EmployeeRepository();
+            if (myConn.getAutoCommit()) {
+                myConn.setAutoCommit(false);
+            }
 
-            System.out.println("Insertando empleado");
+            try {
+                Repository<Employee> repository = new EmployeeRepository(myConn);
 
-            repository.delete(8);
-            repository.findAll().forEach(System.out::println);
+                System.out.println( "---------- Insertar un nuevo cliente ----------");
+                Employee employee = new Employee();
+             /*   employee.setFirst_name("America");
+                employee.setPa_surname("Lopez");
+                employee.setMa_surname(("Villa"));
+                employee.setEmail("ame@example.com");
+                employee.setSalary(30000F);
+                employee.setCurp("AMER123RTC456AQW12");
+                repository.save(employee);*/
 
+                myConn.commit();
+                employee.setFirst_name("David");
+                employee.setFirst_name("America");
+                employee.setPa_surname("Lopez");
+                employee.setMa_surname(("Villa"));
+                employee.setEmail("ame@example.com");
+                employee.setSalary(30000F);
+                employee.setCurp("AMER123RTC456AQW12");
+
+                repository.save(employee);
+            } catch (SQLException e) {
+                myConn.rollback();
+                e.printStackTrace();
+            }
         }
+
     }
 }
